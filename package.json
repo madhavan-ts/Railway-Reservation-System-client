@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "compile:sass": "sass main.scss style.css -w"
+  },
+  "dependencies": {
+    "sass": "^1.77.6"
+  }
+}
