@@ -3,14 +3,14 @@ import View from "./View.js";
 import RouteHomeView from "./routes/RouteHomeView.js";
 import StationsHomeView from "./stations/StationsHomeView.js";
 import TrainHomeView from "./trains/TrainHomeView.js";
-import TripsHomeVIew from "./trips/TripsHomeView.js";
+import TripsHomeView from "./trips/TripsHomeView.js";
 
 class AdminHomePageView extends View {
   links = [
     { label: "Trains", view: TrainHomeView },
     { label: "Stations", view: StationsHomeView },
     { label: "Routes", view: RouteHomeView },
-    { label: "Trips", view: TripsHomeVIew }
+    { label: "Trips", view: TripsHomeView }
   ];
   parentElement = document.querySelector(".container-fluid");
   constructor() {
@@ -18,20 +18,22 @@ class AdminHomePageView extends View {
   }
 
   render() {
-    this.parentElement.insertAdjacentHTML("afterbegin", this.getHTML());
+    this.parentElement.innerHTML = this.getHTML();
     this.addEventHandlers();
-    // console.log(this.links);
+    // const sidebar = document.getElementById("sidebar");
+    document.querySelector(`li[data-target="Trains"]`).classList.add("active");
+    TrainHomeView.render();
 
   }
 
   getHTML() {
     return `
-    <div class="row">
-      <div id="sidebar" class="d-flex flex-shrink-0 p-1  text-bg-dark sidebar" >
+    <div class="row m-0 w-100">
+      <nav id="sidebar" class="d-flex flex-shrink-0 p-1  text-bg-dark" >
       <ul class="nav nav-pills mb-auto gap-2">
         ${this.links.map(item => `<li data-target="${item.label}" class="nav-item nav-link text-light ">${item.label}</li>`).join("")}  
       </ul>
-      </div>
+      </nav>
       <div class="admin__content p-4"></div>
     </div>`;
   }
@@ -47,7 +49,6 @@ class AdminHomePageView extends View {
         event.target.classList.add("active");
 
         const viewToBeRendered = this.links.find(item => item.label === event.target.innerText);
-        // console.log(viewToBeRendered.view);
         viewToBeRendered.view.render();
       }
     })

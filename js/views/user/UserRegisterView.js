@@ -2,11 +2,12 @@ import { BASE_URL } from "../../config.js";
 import { state } from "../../models.js";
 import TrainFormsView from "./TrainFormsView.js";
 import View from "../View.js";
+import UserHomePageView from "./UserHomePageView.js";
+import router from "../../router.js";
 
 class UserRegisterView extends View {
   parentElement = document.querySelector(".container-fluid");
   constructor() {
-
     super();
   }
 
@@ -20,7 +21,12 @@ class UserRegisterView extends View {
   getHTML() {
     return `
     
-    <a href="/login" class=" col-1 my-3">&larr; Back to Sign In</a>
+    <nav class="navbar bg-dark">
+      <ul class="nav">
+        <li class="nav-item "><a class="nav-link text-light" href="/admin-login">&larr; &nbsp; Back to user Login</a></li>
+
+      </ul>
+    </nav>
     <div class="col-md-10 w-100">
     <div class="form__container">  
     <div class="register mx-auto">
@@ -235,10 +241,12 @@ class UserRegisterView extends View {
       return;
     }
 
-
+    state.userDetails.username = data.username;
     state.isUserLoggedIn = true;
-    TrainFormsView.showTrainsForm();
+    // TrainFormsView.showTrainsForm();
     // showTrainForm();
+    // UserHomePageView.render();
+    router.navigateTo("/user-home")
   }
 
 }

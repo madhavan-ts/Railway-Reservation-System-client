@@ -1,8 +1,9 @@
 import { BASE_URL } from "../../config.js";
 import { state } from "../../models.js";
-import TrainFormsView from "./TrainFormsView.js";
 import UserRegisterView from "./UserRegisterView.js";
 import View from "../View.js";
+import UserHomePageView from "./UserHomePageView.js";
+import router from "../../router.js";
 
 class UserLoginView extends View {
   parentElement = document.querySelector(".container-fluid");
@@ -18,6 +19,17 @@ class UserLoginView extends View {
 
   getHTML() {
     return ` 
+    <nav class="navbar bg-dark">
+      <div class="nav-brand"></div>
+      <ul class="nav">
+      <li class="nav-item">
+          <a class="text-light nav-link text-light" href="/">Homepage</a>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link text-light" href="/admin-login">Admin Login</a>
+        </li>
+      </ul>
+    </nav>
     <div class="form__container col-md-6 text-center">
     <div class="login mx-auto">
         <form id="login-form">
@@ -121,9 +133,12 @@ class UserLoginView extends View {
       }
 
       state.isUserLoggedIn = true;
+      state.userDetails.username = data.username;
       this.renderToast("User Login Successful", true);
-      TrainFormsView.showTrainsForm();
+      router.navigateTo("/user-home");
+      // state.isUserLoggedIn = true
     } catch (error) {
+      console.log(error);
       this.renderToast("Cannot Connect to Server");
     }
   }

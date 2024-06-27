@@ -34,11 +34,18 @@ export default class View {
 
   renderSpinner() {
     let loadingElement = document.getElementById("loading");
+    loadingElement.classList.add("position-fixed", "top-0", "bottom-0", "d-flex", "justify-content-center", "align-items-center", "w-100", "bg-body-dark");
     loadingElement.innerHTML = `
       <div class="spinner-border text-primary" role="status">
         <span class="visually-hidden">Loading...</span>
       </div>
     `;
+  }
+
+  hideSpinner() {
+    let loadingElement = document.getElementById("loading");
+    loadingElement.innerHTML = "";
+    loadingElement.classList.remove(...loadingElement.classList);
 
   }
 }

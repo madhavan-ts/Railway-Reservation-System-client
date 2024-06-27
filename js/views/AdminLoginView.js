@@ -1,5 +1,6 @@
 import { BASE_URL } from "../config.js";
 import { state } from "../models.js";
+import router from "../router.js";
 import AdminHomePageView from "./AdminHomePageView.js";
 import View from "./View.js";
 
@@ -16,6 +17,17 @@ class AdminLoginView extends View {
 
   getHTML() {
     return `
+    <nav class="navbar bg-dark">
+      <div class="nav-brand"></div>
+      <ul class="nav">
+        <li class="nav-item">
+          <a class="text-light nav-link text-light" href="/">Homepage</a>
+        </li>
+        <li class="nav-item">
+          <a class="text-light nav-link text-light" href="/login">User Login</a>
+        </li>
+      </ul>
+    </nav>
     <div class="form__container">
      <div class="register mx-auto my-5">
         <form id="register-form">
@@ -110,12 +122,12 @@ class AdminLoginView extends View {
         return;
       }
 
-      state.isUserLoggedIn = true;
+      state.isAdminLoggedIn = true;
       this.renderToast("Admin Login Successful", true);
-      state.adminDetails["username"] = data.username;
+      state.adminDetails.username = data.username;
       console.log("Admin forms to be displayed");
       console.log(state.adminDetails);
-      AdminHomePageView.render();
+      router.navigateTo("/admin-home");
     } catch (error) {
       console.log(error);
       this.renderToast("Cannot Connect to Server");

@@ -13,8 +13,10 @@ class HomeView {
 
   getHTML() {
     return `
-      <p> Home Page</p>
+      <p>Home Page</p>
       <a href="/login">Go to Login Page</a>
+      <br>
+      <a href="/admin-login"> Go to Admin Login page
     `;
   }
 

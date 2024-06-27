@@ -7,6 +7,8 @@
 }
 
 body {
+  min-height: 100vh;
+  scroll-behavior: smooth;
   font-family: "Poppins", sans-serif;
   font-weight: 400;
 }
@@ -27,10 +29,6 @@ body {
   color: black;
   text-decoration: none;
   text-transform: uppercase;
-}
-
-.train__search {
-  background-color: #aaa;
 }
 
 .form {
@@ -84,7 +82,6 @@ body {
 
 .train__details {
   width: 100%;
-  background-color: #ddd;
   margin: auto;
   padding: 1rem;
 }
@@ -110,11 +107,6 @@ body {
   justify-content: space-between;
   align-items: center;
 }
-.train__card__item-timing {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 .train__card__item-classes {
   display: flex;
   gap: 1rem;
@@ -122,15 +114,7 @@ body {
   padding: 1rem;
 }
 .train__card__item-class-card {
-  display: inline-block;
-  min-width: 15rem;
-  padding: 1rem;
-  gap: 0.5rem;
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  flex-basis: 20%;
-  background-color: #bbb;
+  min-width: 12rem;
 }
 .train__card__item .book-btn,
 .train__card__item .check-btn {
@@ -152,6 +136,7 @@ body {
   right: 0;
   max-height: 10rem;
   overflow-y: scroll;
+  z-index: 100;
   background-color: #b4b2c8;
 }
 .stations-list {
@@ -246,17 +231,8 @@ body {
 }
 
 #loading {
-  position: fixed;
   z-index: 999;
-  background-color: rgba(175, 175, 175, 0.1450980392);
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background-color: rgba(57, 57, 57, 0.2);
 }
 
 .admin__content {

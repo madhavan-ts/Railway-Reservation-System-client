@@ -1,21 +1,23 @@
+import { BASE_URL } from "../../config.js";
 import { state } from "../../models.js";
 import View from "../View.js";
+import BookingDetailView from "./BookingDetailView.js";
 
 class BookingView extends View {
   parentElement;
   preferences;
   constructor() { super(); }
 
-  render(data) {
+  render() {
     this.parentElement = document.querySelector(".container-fluid");
-    this.parentElement.innerHTML = this.getHTML(data);
-    this.preferences = this.getPreferences(data.className);
+    this.parentElement.innerHTML = this.getHTML(state.selectedTrain);
+    this.preferences = this.getPreferences(state.selectedTrain.className);
     const addBtn = document.getElementById("add-passenger");
 
     const bookingForm = document.getElementById("booking__form");
-    bookingForm.addEventListener("submit", function (event) {
+    const self = this;
+    bookingForm.addEventListener("submit", async function (event) {
       event.preventDefault();
-      // const passenngersElementNodes = this.querySelectorAll(".passenger__details");
       const passengerDetailsList = [];
       for (let index = 0; index < 5; index++) {
         if (document.getElementById(`passengerName[${index}]`) === null) continue;
@@ -30,16 +32,43 @@ class BookingView extends View {
       console.log(passengerDetailsList);
 
       let submittedDetails = {
+        username: state.userDetails.username,
+        tripID: parseInt(state.selectedTrain.tripID),
+        trainID: parseInt(state.selectedTrain.trainID),
+        routeID: parseInt(state.selectedTrain.routeID),
         trainNumber: state.selectedTrain.trainNumber,
         routeNumber: state.selectedTrain.routeNumber,
         departureTime: state.selectedTrain.departureTime,
         className: state.selectedTrain.className,
-        dateofJourney: state.search.dateOfJourney,
+        dateOfJourney: state.search.dateOfJourney,
         fromStationID: state.selectedTrain.fromStationID,
         toStationID: state.selectedTrain.toStationID,
         passengers: [...passengerDetailsList]
       };
       console.log(submittedDetails);
+
+      try {
+        self.renderSpinner();
+        const response = await fetch(`${BASE_URL}/api/train/book`, {
+          method: "POST",
+          mode: "cors",
+          headers: new Headers({
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          }),
+          body: JSON.stringify(submittedDetails)
+        })
+
+        const result = await response.json();
+        self.hideSpinner();
+        // if(result.success){
+        console.log(result);
+        // }
+        BookingDetailView.render([...result.booked, ...result.waitingList]);
+
+      } catch (error) {
+        console.log(error);
+      }
     })
 
 

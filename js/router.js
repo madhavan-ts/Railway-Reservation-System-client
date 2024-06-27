@@ -1,9 +1,10 @@
 import AdminHomePageView from "./views/AdminHomePageView.js";
 import BookingView from "./views/user/BookingView.js";
 import HomeView from "./views/HomeView.js";
-import TrainSearchView from "./views/user/TrainSearchView.js";
 import UserLoginView from "./views/user/UserLoginView.js";
 import UserRegisterView from "./views/user/UserRegisterView.js";
+import AdminLoginView from "./views/AdminLoginView.js";
+import UserHomePageView from "./views/user/UserHomePageView.js";
 
 class Router {
   routes = [
@@ -23,19 +24,24 @@ class Router {
       title: "User Login Page"
     },
     {
-      pathname: "/train-search",
-      view: TrainSearchView,
-      title: "Search Trains"
-    },
-    {
       pathname: "/book-ticket",
       view: BookingView,
+      title: "Book Ticket"
+    },
+    {
+      pathname: "/admin-login",
+      view: AdminLoginView,
       title: "Book Ticket"
     },
     {
       pathname: "/admin-home",
       view: AdminHomePageView,
       title: "Admin Home"
+    },
+    {
+      pathname: "/user-home",
+      view: UserHomePageView,
+      title: "User Home"
     }
   ]
 

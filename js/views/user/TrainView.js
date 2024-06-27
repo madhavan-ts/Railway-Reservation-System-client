@@ -1,8 +1,8 @@
 import { BASE_URL } from "../../config.js";
 import { state } from "../../models.js";
 import { getDataAsJSON } from "../../models.js";
+import router from "../../router.js";
 import View from "../View.js";
-import BookingView from "./BookingView.js";
 
 class TrainView extends View {
   parentElement;
@@ -75,7 +75,8 @@ class TrainView extends View {
           };
           state.selectedTrain = { ...selectedTrain };
           console.log("state Variable", state.selectedTrain);
-          BookingView.render(selectedTrain);
+          // BookingView.render();
+          router.navigateTo("/book-ticket");
         }
       });
 
@@ -92,7 +93,6 @@ class TrainView extends View {
       );
       if (jsonResponse.success) {
         if (jsonResponse.available) {
-
           self.renderToast(`Seats are available - No Of Seats are : ${jsonResponse.seatCount}`, true);
         } else {
           self.renderToast(`Seats are not available - Waiting List No : ${jsonResponse.waitinglist}`, true);
@@ -107,7 +107,7 @@ class TrainView extends View {
 
   getMarkup(trains) {
     return `
-      <ul class="train__card">
+      <ul class="train__card p-0">
       ${trains
         .map((item) => {
           return `
@@ -126,8 +126,8 @@ class TrainView extends View {
         data-to-station-name="${item.toStation}" 
         data-duration="${item.duration}" 
         data-arrival-time="${item.arrivalTime}" 
-        class="train__card__item">
-          <div class="train__card__item-header">
+        class="card mb-2">
+          <div class="card-header d-flex justify-content-between flex-wrap">
             <div class="train__card__item-name">${item.trainName} (${item.trainNo
             })</div>
             <div class="train__card__item-run-days">${item.days
@@ -136,32 +136,36 @@ class TrainView extends View {
               })
               .join("-")}</div >
           </div >
-          <div class="train__card__item-schedule">
-            <div class="train__card__item-timing">
-              <span>${item.departureTime}</span >
-              <span>${item.fromStation}<br> (${item.fromStationID})</span>
+          <div class="card-body">
+            <div class="d-flex justify-content-between flex-wrap">
+              <div class="d-flex flex-column align-items-center">
+                <span>${item.departureTime}</span >
+                <span>${item.fromStation} (${item.fromStationID})</span>
+              </div >
+              <div class="d-flex flex-column align-items-center flex-grow-1">
+                <span>--- ${item.duration} ---</span>
+              </div>
+              <div class="d-flex flex-column align-items-center">
+                <span>${item.arrivalTime}</span>
+                <span>${item.toStation} (${item.toStationID})</span>
+              </div>
             </div >
-            <div class="train__card__item-timing">
-              <span>--- ${item.duration} ---</span>
-            </div>
-            <div class="train__card__item-timing">
-              <span>${item.arrivalTime}</span>
-              <span>${item.toStation}<br> (${item.toStationID})</span>
-            </div>
-          </div >
-        <div class="train__card__item-classes">
-          ${item.classes
+            <div class="d-flex gap-3 flex-grow-1 overflow-x-auto py-2">
+              ${item.classes
               .map(
                 (trainClass) =>
-                  `<div data-class="${trainClass.className}" data-price="${trainClass.ticketPrice}" class="train__card__item-class-card">
-              <div>${trainClass.className}</div>
-              <div>${trainClass.ticketPrice}</div>
-              <button class="book-btn">Book</button>
-              <button class="check-btn">Check</button>
-            </div>`
+                  `<div data-class="${trainClass.className}" data-price="${trainClass.ticketPrice}" class="card train__card__item-class-card">
+                <div class="card-header text-center">${trainClass.className}</div>
+                  <div class="card-body d-flex flex-column gap-1">
+                    <div class="fw-bolder align-self-center">&#8377;&nbsp;${trainClass.ticketPrice}</div>
+                    <button class="book-btn btn btn-primary p-1">Book</button>
+                    <button class="check-btn btn btn-secondary p-1">Check</button>
+                  </div>
+                </div>`
               )
               .join("")}
-        </div>
+            </div>
+          </div>
         </li >
       `;
         })

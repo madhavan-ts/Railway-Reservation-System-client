@@ -1,21 +1,25 @@
 import { BASE_URL } from "../../config.js";
 import { loadStations, state } from "../../models.js";
+import View from "../View.js";
 import TrainView from "./TrainView.js";
 
-class TrainFormsView {
-  parentElement = document.querySelector(".container-fluid");
-  constructor() { }
+class TrainFormsView extends View {
+  parentElement;
 
-  async showTrainsForm() {
+  constructor() { super(); }
+
+  render() {
+    document.title = "Search Trains";
     this.renderSpinner();
-    await loadStations();
-    this.render(state.stations);
+    loadStations();
+    this.parentElement = document.querySelector(".user__content");
+    this.renderPage(state.stations);
+    this.hideSpinner();
   }
 
-  render(stations) {
+  renderPage(stations) {
     this.parentElement.innerHTML = this.getMarkup();
     const form = document.getElementById("train-search-form");
-    console.log(stations);
 
     // for DropDown Functionalities
     const formFields = form.querySelectorAll("[data-form-field]");
@@ -30,7 +34,7 @@ class TrainFormsView {
         let newStations = stations.filter((item) =>
           item.stationName.toLowerCase().includes(typedString.toLowerCase())
         );
-        console.log(newStations);
+        // console.log(newStations);
         let targetDropDown = document.querySelector(
           `[data-dropdown="${targetName}"]`
         );
@@ -79,12 +83,13 @@ class TrainFormsView {
     // make the submit functionality work
     document
       .getElementById("train-search-form")
-      .addEventListener("submit", async function (event) {
+      .addEventListener("submit", async (event) => {
         event.preventDefault();
         // console.log(this);
-        let sourceElement = this.querySelector("#source");
-        let destinationElement = this.querySelector("#destination");
-        let dateOfJourneyElement = this.querySelector("#dateOfJourney");
+        let form = document.getElementById("train-search-form");
+        let sourceElement = form.querySelector("#source");
+        let destinationElement = form.querySelector("#destination");
+        let dateOfJourneyElement = form.querySelector("#dateOfJourney");
         console.log(sourceElement, destinationElement, dateOfJourneyElement);
         state.search.source = sourceElement.getAttribute("data-value");
         state.search.sourceStationName = sourceElement.value;
@@ -100,9 +105,8 @@ class TrainFormsView {
           dateOfJourneyElement === null ||
           sourceElement === undefined ||
           destinationElement === undefined ||
-          dateOfJourneyElement === undefined
-        ) {
-          alert("please select any one of the stations");
+          dateOfJourneyElement === undefined || destinationElement.getAttribute("data-value") === null || sourceElement.getAttribute("data-value") === null) {
+          this.renderToast("Please select any one of the stations");
           return;
         }
 
@@ -112,8 +116,12 @@ class TrainFormsView {
           );
           const data = await response.json();
           console.log(response);
-          console.log(data.data);
-          TrainView.render(data.data);
+          console.log(data);
+          if (data.success) {
+            TrainView.render(data.data);
+          } else {
+            this.renderToast(data.message);
+          }
         } catch (error) {
           console.log(error);
           throw error;
@@ -121,16 +129,12 @@ class TrainFormsView {
       });
   }
 
-  renderSpinner() {
-    console.log("rendering");
-    this.parentElement.innerHTML = `
-    <div class="loading"><i class="fa-solid fa-spinner"></i></div>`;
-  }
+
 
   getMarkup() {
     return `
     <div class="col-md-10 w-100">
-    <div class="train__search p-3">
+    <div class="bg-body-secondary p-3">
       <form class="d-flex flex-column gap-3"  id="train-search-form">
       <div class="row g-3">
         <div class="col-sm-4">
