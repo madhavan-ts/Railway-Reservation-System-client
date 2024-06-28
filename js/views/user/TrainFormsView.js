@@ -6,7 +6,9 @@ import TrainView from "./TrainView.js";
 class TrainFormsView extends View {
   parentElement;
 
-  constructor() { super(); }
+  constructor() {
+    super();
+  }
 
   render() {
     document.title = "Search Trains";
@@ -105,7 +107,10 @@ class TrainFormsView extends View {
           dateOfJourneyElement === null ||
           sourceElement === undefined ||
           destinationElement === undefined ||
-          dateOfJourneyElement === undefined || destinationElement.getAttribute("data-value") === null || sourceElement.getAttribute("data-value") === null) {
+          dateOfJourneyElement === undefined ||
+          destinationElement.getAttribute("data-value") === null ||
+          sourceElement.getAttribute("data-value") === null
+        ) {
           this.renderToast("Please select any one of the stations");
           return;
         }
@@ -128,8 +133,6 @@ class TrainFormsView extends View {
         }
       });
   }
-
-
 
   getMarkup() {
     return `

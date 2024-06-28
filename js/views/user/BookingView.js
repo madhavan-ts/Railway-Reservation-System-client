@@ -64,7 +64,7 @@ class BookingView extends View {
         // if(result.success){
         console.log(result);
         // }
-        BookingDetailView.render([...result.booked, ...result.waitingList]);
+        BookingDetailView.render([...result.booked, ...result.waitingList], result.pnr);
 
       } catch (error) {
         console.log(error);
@@ -76,28 +76,35 @@ class BookingView extends View {
       let passengerButton = document.getElementById("add-passenger");
       let passengerDetailsElement = document.createElement("div");
       passengerDetailsElement.classList.add('passenger__details');
-      passengerDetailsElement.innerHTML = `<div class="passenger__details__form__group">
-            <label for="passengerName[${i}]">Passenger Name</label>
+      passengerDetailsElement.innerHTML = `
+          <div class="form-floating" >
             <input
+              placeholder="Passenger Name"
+              class="form-control"
               type="text"
               id="passengerName[${i}]"
               name="passengerName[${i}]"
               required
             />
+            <label for="passengerName[${i}]">Passenger Name</label>
           </div >
-          <div class="passenger__details__form__group">
-            <label for="passengerAge[${i}]">Passenger Age</label>
+          <div class="form-floating">
             <input
-              type="text"
+              placeholder="Passenger Age"
+              class="form-control"
+              type="number"
+              min="1"
+              max="100"
               id="passengerAge[${i}]"
               name="passengerAge[${i}]"
               required
             />
+          <label for="passengerAge[${i}]">Passenger Age</label>
           </div>
 
-          <div class="passenger__details__form__group">
-            <label for="passengerGender[${i}]">Passenger Gender</label>
+          <div class="form-floating">
             <select
+              class="form-select"
               type="text"
               id="passengerGender[${i}]"
               name="passengerGender[${i}]"
@@ -107,9 +114,10 @@ class BookingView extends View {
               <option value="FEMALE">FEMALE</option>
               <option value="OTHER">OTHER</option>
             </select>
+            <label for="passengerGender[${i}]">Passenger Gender</label>
           </div>
 
-          <div class="passenger__details__form__group">
+          <div class="form-floating">
             <label for="passengerPreference[${i}]">Seat Perference</label>
             <select
               type="text"
@@ -120,7 +128,7 @@ class BookingView extends View {
               ${this.preferences.map((item) => `<option value="${item}">${item}</option>`).join("")}
             </select>
           </div>
-          <button type="button" class="delete-btn">
+          <button type="button" class="delete-btn btn btn-danger">
             <i class="fa-solid fa-trash"></i>
           </button>
           `

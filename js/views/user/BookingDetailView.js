@@ -8,10 +8,10 @@ class BookingDetails extends View {
     super();
   }
 
-  render(bookingDetails) {
+  render(bookingDetails, pnr) {
     this.parentElement = document.querySelector(".container-fluid");
     this.parentElement.innerHTML = this.getHTML();
-    this.renderBookingDetails(bookingDetails)
+    this.renderBookingDetails(bookingDetails, pnr)
 
     // this.addEventHandlers();
   }
@@ -30,8 +30,8 @@ class BookingDetails extends View {
     `
   }
 
-  renderBookingDetails(details) {
-    const { trainNumber, trainName, className, departureTime, dateOfJourney, fromStationID, fromStation, toStationID, toStation, pnr } = state.selectedTrain;
+  renderBookingDetails(details, pnr) {
+    const { trainNumber, trainName, className, departureTime, dateOfJourney, fromStationID, fromStation, toStationID, toStation } = state.selectedTrain;
 
     // const details = [...booking]
     let passengerDetailsContainerElement = document.getElementById("passenger-details")

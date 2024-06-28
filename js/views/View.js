@@ -1,7 +1,6 @@
-// views contain generic methods such as the renderToast, renderSpinner 
+// views contain generic methods such as the renderToast, renderSpinner
 
 export default class View {
-
   renderAlert(parentElement, message, type = "danger") {
     const alertElement = document.createElement("div");
     alertElement.classList.add(`alert`, `alert-${type}`);
@@ -15,7 +14,8 @@ export default class View {
 
   renderToast(message, success = false) {
     let toastElement = document.getElementById("toast");
-    toastElement.innerHTML = `<div class="toast position-fixed align-items-center text-bg-${success ? "success" : "danger"} border-0" role="alert" aria-live="assertive" aria-atomic="true">
+    toastElement.innerHTML = `<div class="toast position-fixed align-items-center text-bg-${success ? "success" : "danger"
+    } border-0" role="alert" aria-live="assertive" aria-atomic="true">
       <div class="d-flex">
         <div class="toast-body">
           ${message}
@@ -34,7 +34,16 @@ export default class View {
 
   renderSpinner() {
     let loadingElement = document.getElementById("loading");
-    loadingElement.classList.add("position-fixed", "top-0", "bottom-0", "d-flex", "justify-content-center", "align-items-center", "w-100", "bg-body-dark");
+    loadingElement.classList.add(
+      "position-fixed",
+      "top-0",
+      "bottom-0",
+      "d-flex",
+      "justify-content-center",
+      "align-items-center",
+      "w-100",
+      "bg-body-dark"
+    );
     loadingElement.innerHTML = `
       <div class="spinner-border text-primary" role="status">
         <span class="visually-hidden">Loading...</span>
@@ -46,6 +55,5 @@ export default class View {
     let loadingElement = document.getElementById("loading");
     loadingElement.innerHTML = "";
     loadingElement.classList.remove(...loadingElement.classList);
-
   }
 }

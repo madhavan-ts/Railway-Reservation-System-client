@@ -1,8 +1,8 @@
-import { BASE_URL } from "../config.js";
-import { state } from "../models.js";
-import router from "../router.js";
+import { BASE_URL } from "../../config.js";
+import { state } from "../../models.js";
+import router from "../../router.js";
 import AdminHomePageView from "./AdminHomePageView.js";
-import View from "./View.js";
+import View from "../View.js";
 
 class AdminLoginView extends View {
   parentElement = document.querySelector(".container-fluid");

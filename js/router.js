@@ -1,9 +1,9 @@
-import AdminHomePageView from "./views/AdminHomePageView.js";
+import AdminHomePageView from "./views/admin/AdminHomePageView.js";
 import BookingView from "./views/user/BookingView.js";
 import HomeView from "./views/HomeView.js";
 import UserLoginView from "./views/user/UserLoginView.js";
 import UserRegisterView from "./views/user/UserRegisterView.js";
-import AdminLoginView from "./views/AdminLoginView.js";
+import AdminLoginView from "./views/admin/AdminLoginView.js";
 import UserHomePageView from "./views/user/UserHomePageView.js";
 
 class Router {
@@ -11,42 +11,42 @@ class Router {
     {
       pathname: "/",
       view: HomeView,
-      title: "Home Page"
+      title: "Home Page",
     },
     {
       pathname: "/register",
       view: UserRegisterView,
-      title: "User Register Page"
+      title: "User Register Page",
     },
     {
       pathname: "/login",
       view: UserLoginView,
-      title: "User Login Page"
+      title: "User Login Page",
     },
     {
       pathname: "/book-ticket",
       view: BookingView,
-      title: "Book Ticket"
+      title: "Book Ticket",
     },
     {
       pathname: "/admin-login",
       view: AdminLoginView,
-      title: "Book Ticket"
+      title: "Book Ticket",
     },
     {
       pathname: "/admin-home",
       view: AdminHomePageView,
-      title: "Admin Home"
+      title: "Admin Home",
     },
     {
       pathname: "/user-home",
       view: UserHomePageView,
-      title: "User Home"
-    }
-  ]
+      title: "User Home",
+    },
+  ];
 
   navigateTo(pathname) {
-    const foundPath = this.routes.find(item => item.pathname === pathname)
+    const foundPath = this.routes.find((item) => item.pathname === pathname);
     if (foundPath) {
       let viewToBeRendered = foundPath.view;
       viewToBeRendered.render();
@@ -54,7 +54,6 @@ class Router {
       HomeView.render();
     }
   }
-
 }
 
 export default new Router();

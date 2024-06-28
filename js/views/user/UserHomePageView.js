@@ -3,6 +3,7 @@ import CancelTicketView from "./CancelTicketView.js";
 
 import CheckPNRStatusView from "./CheckPNRStatusView.js";
 import TrainFormsView from "./TrainFormsView.js";
+import UserLogoutView from "./UserLogoutView.js";
 
 
 class UserHomePageView extends View {
@@ -10,6 +11,7 @@ class UserHomePageView extends View {
     { label: "Book Ticket", view: TrainFormsView },
     { label: "PNR Status", view: CheckPNRStatusView },
     { label: "Cancel Ticket", view: CancelTicketView },
+    { label: "Logout", view: UserLogoutView },
   ];
   parentElement = document.querySelector(".container-fluid");
   constructor() {
