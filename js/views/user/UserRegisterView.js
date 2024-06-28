@@ -246,7 +246,8 @@ class UserRegisterView extends View {
     // TrainFormsView.showTrainsForm();
     // showTrainForm();
     // UserHomePageView.render();
-    router.navigateTo("/user-home")
+    router.navigateTo("/user-home");
+
   }
 
 }

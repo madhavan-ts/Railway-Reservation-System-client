@@ -7,13 +7,13 @@ import View from "../View.js";
 class TrainView extends View {
   parentElement;
   daysMap = {
-    1: "MON",
-    2: "TUE",
-    3: "WED",
-    4: "THU",
-    5: "FRI",
-    6: "SAT",
-    7: "SUN",
+    1: "MO",
+    2: "TU",
+    3: "WE",
+    4: "TH",
+    5: "FR",
+    6: "SA",
+    7: "SU",
   };
   data;
   constructor() { super(); }
@@ -77,6 +77,7 @@ class TrainView extends View {
           console.log("state Variable", state.selectedTrain);
           // BookingView.render();
           router.navigateTo("/book-ticket");
+
         }
       });
 
@@ -127,7 +128,7 @@ class TrainView extends View {
         data-duration="${item.duration}" 
         data-arrival-time="${item.arrivalTime}" 
         class="card mb-2">
-          <div class="card-header d-flex justify-content-between flex-wrap">
+          <div class="card-header d-flex justify-content-between flex-wrap row-col-auto">
             <div class="train__card__item-name">${item.trainName} (${item.trainNo
             })</div>
             <div class="train__card__item-run-days">${item.days
@@ -137,15 +138,15 @@ class TrainView extends View {
               .join("-")}</div >
           </div >
           <div class="card-body">
-            <div class="d-flex justify-content-between flex-wrap">
-              <div class="d-flex flex-column align-items-center">
+            <div class="row ">
+              <div class="d-flex flex-column align-items-center  col-md-4">
                 <span>${item.departureTime}</span >
                 <span>${item.fromStation} (${item.fromStationID})</span>
               </div >
-              <div class="d-flex flex-column align-items-center flex-grow-1">
+              <div class="d-flex flex-column align-items-center col-md-4">
                 <span>--- ${item.duration} ---</span>
               </div>
-              <div class="d-flex flex-column align-items-center">
+              <div class="d-flex flex-column align-items-center col-md-4">
                 <span>${item.arrivalTime}</span>
                 <span>${item.toStation} (${item.toStationID})</span>
               </div>

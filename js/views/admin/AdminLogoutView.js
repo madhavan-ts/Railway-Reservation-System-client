@@ -11,6 +11,7 @@ class AdminLogoutView {
     this.parentElement = document.querySelector(".admin__content");
     this.parentElement.innerHTML = this.getHTML();
     state.adminDetails = {};
+    state.isAdminLoggedIn = false;
     document.getElementById("admin_navbar").remove();
     let sec = 5;
     let interval = setInterval(() => {

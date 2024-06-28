@@ -5,6 +5,8 @@ import RouteHomeView from "./RouteHomeView.js";
 import StationsHomeView from "./StationsHomeView.js";
 import TrainHomeView from "./TrainHomeView.js";
 import TripsHomeView from "./TripsHomeView.js";
+import { state } from "../../models.js";
+import router from "../../router.js";
 // import AdminProfileView from "./AdminProfileView.js";
 
 class AdminHomePageView extends View {
@@ -23,6 +25,11 @@ class AdminHomePageView extends View {
   }
 
   render() {
+    if (state.isAdminLoggedIn === false) {
+      this.renderToast("Not Logged in",);
+      router.redirectTo("/admin-login");
+      return;
+    } 
     this.parentElement.innerHTML = this.getHTML();
     this.addEventHandlers();
     // const sidebar = document.getElementById("sidebar");

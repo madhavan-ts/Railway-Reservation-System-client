@@ -19,8 +19,11 @@ window.onload = () => {
   let view = new View();
   view.renderSpinner();
   router.navigateTo("/");
-
   view.hideSpinner();
 }
 
-
+onpopstate = event => {
+  event.preventDefault();
+  router.redirectTo(window.location.pathname);
+  console.log(event);
+}

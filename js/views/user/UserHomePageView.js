@@ -1,3 +1,5 @@
+import { state } from "../../models.js";
+import router from "../../router.js";
 import View from "../View.js";
 import CancelTicketView from "./CancelTicketView.js";
 
@@ -19,6 +21,11 @@ class UserHomePageView extends View {
   }
 
   render() {
+    if (state.isUserLoggedIn === false) {
+      this.renderToast("Not Logged in",);
+      router.redirectTo("/login");
+      return;
+    } 
     this.parentElement.innerHTML = this.getHTML();
     this.addEventHandlers();
     // console.log(this.links);

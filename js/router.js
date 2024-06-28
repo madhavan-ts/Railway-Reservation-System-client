@@ -31,7 +31,7 @@ class Router {
     {
       pathname: "/admin-login",
       view: AdminLoginView,
-      title: "Book Ticket",
+      title: "Admin Login",
     },
     {
       pathname: "/admin-home",
@@ -48,6 +48,18 @@ class Router {
   navigateTo(pathname) {
     const foundPath = this.routes.find((item) => item.pathname === pathname);
     if (foundPath) {
+      document.title = foundPath.title;
+      let viewToBeRendered = foundPath.view;
+      viewToBeRendered.render();
+      history.pushState(null, null, pathname);
+    } else {
+      HomeView.render();
+    }
+  }
+  redirectTo(pathname) {
+    const foundPath = this.routes.find((item) => item.pathname === pathname);
+    if (foundPath) {
+      document.title = foundPath.title;
       let viewToBeRendered = foundPath.view;
       viewToBeRendered.render();
     } else {

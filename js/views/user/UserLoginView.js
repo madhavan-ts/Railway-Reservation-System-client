@@ -136,6 +136,8 @@ class UserLoginView extends View {
       state.userDetails.username = data.username;
       this.renderToast("User Login Successful", true);
       router.navigateTo("/user-home");
+
+
       // state.isUserLoggedIn = true
     } catch (error) {
       console.log(error);

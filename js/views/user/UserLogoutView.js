@@ -11,6 +11,7 @@ class UserLogoutView {
     this.parentElement = document.querySelector(".user__content");
     this.parentElement.innerHTML = this.getHTML();
     state.userDetails = {};
+    state.isUserLoggedIn = false;
     document.getElementById("user_navbar").remove();
     let sec = 5;
     let interval = setInterval(() => {
