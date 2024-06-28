@@ -65,7 +65,7 @@ class BookingDetails extends View {
         Passenger Details
       </div>
       <div class="card-body">
-      <div class="d-flex gap-2 justify-content-between">
+        <div class="d-flex gap-2 justify-content-between">
           <span>Name : </span>
           <span>${passengerName}</span>
         </div>
@@ -90,14 +90,14 @@ class BookingDetails extends View {
           </div>
           <div class="d-flex gap-2 justify-content-between">
             <span>Compartment No : </span>
-            <span>${compartmentNo}</span>>
+            <span>${compartmentNo}</span>
           </div>
           ` : `<div class="d-flex gap-2 justify-content-between">
                 <span>Waiting List No : </span>
                 <span>${waitingListNo}</span>
               </div>`
       }
-    </div>
+      </div>
     </div>`
   }
 

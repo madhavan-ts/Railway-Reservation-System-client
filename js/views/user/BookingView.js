@@ -75,70 +75,83 @@ class BookingView extends View {
     const addPassenger = (i) => {
       let passengerButton = document.getElementById("add-passenger");
       let passengerDetailsElement = document.createElement("div");
-      passengerDetailsElement.classList.add('passenger__details');
+      passengerDetailsElement.classList.add("row", "m-0", "w-100", "gap-2", "mb-2");
       passengerDetailsElement.innerHTML = `
-          <div class="form-floating" >
-            <input
-              placeholder="Passenger Name"
-              class="form-control"
-              type="text"
-              id="passengerName[${i}]"
-              name="passengerName[${i}]"
-              required
-            />
-            <label for="passengerName[${i}]">Passenger Name</label>
-          </div >
-          <div class="form-floating">
-            <input
-              placeholder="Passenger Age"
-              class="form-control"
-              type="number"
-              min="1"
-              max="100"
-              id="passengerAge[${i}]"
-              name="passengerAge[${i}]"
-              required
-            />
-          <label for="passengerAge[${i}]">Passenger Age</label>
-          </div>
-
-          <div class="form-floating">
-            <select
-              class="form-select"
-              type="text"
-              id="passengerGender[${i}]"
-              name="passengerGender[${i}]"
-              required
-            >
-              <option value="MALE">MALE</option>
-              <option value="FEMALE">FEMALE</option>
-              <option value="OTHER">OTHER</option>
-            </select>
-            <label for="passengerGender[${i}]">Passenger Gender</label>
-          </div>
-
-          <div class="form-floating">
-            <label for="passengerPreference[${i}]">Seat Perference</label>
-            <select
-              type="text"
-              id="passengerPreference[${i}]"
-              name="passengerPreference[${i}]"
-              required
-            >
-              ${this.preferences.map((item) => `<option value="${item}">${item}</option>`).join("")}
-            </select>
-          </div>
-          <button type="button" class="delete-btn btn btn-danger">
+          <p class="fs-4 mb-0">Passenger Details<button type="button" class="delete-btn btn btn-danger mx-3">
             <i class="fa-solid fa-trash"></i>
-          </button>
+          </button></p>
+          <div class="col-md-3 p-0">
+
+            <div class="form-floating" >
+              <input
+                placeholder="Passenger Name"
+                class="form-control"
+                type="text"
+                id="passengerName[${i}]"
+                name="passengerName[${i}]"
+                required
+              />
+              <label for="passengerName[${i}]">Passenger Name</label>
+            </div >
+          </div >
+          <div class="col-md-2 p-0">
+
+            <div class="form-floating">
+              <input
+                placeholder="Passenger Age"
+                class="form-control"
+                type="number"
+                min="1"
+                max="100"
+                id="passengerAge[${i}]"
+                name="passengerAge[${i}]"
+                required
+              />
+            <label for="passengerAge[${i}]">Passenger Age</label>
+            </div>
+          </div>
+          <div class="col-md-3 p-0">
+
+            <div class="form-floating">
+              <select
+                class="form-select"
+                type="text"
+                id="passengerGender[${i}]"
+                name="passengerGender[${i}]"
+                required
+              >
+                <option value="MALE">MALE</option>
+                <option value="FEMALE">FEMALE</option>
+                <option value="OTHER">OTHER</option>
+              </select>
+              <label for="passengerGender[${i}]">Gender</label>
+            </div>
+          </div>
+          <div class="col-md-3 p-0">
+
+            <div class="form-floating">
+              <select
+              class="form-select"
+                type="text"
+                id="passengerPreference[${i}]"
+                name="passengerPreference[${i}]"
+                required
+              >
+                ${this.preferences.map((item) => `<option value="${item}">${item}</option>`).join("")}
+              </select>
+
+              <label for="passengerPreference[${i}]">Perference</label>
+            </div>
+          </div>
+          
           `
       passengerButton.insertAdjacentElement("beforebegin", passengerDetailsElement
       );
       // </div>
-      const deleteBtn = passengerDetailsElement.querySelector(".delete-btn");
+      const deleteBtn = passengerDetailsElement.querySelector(".delete-btn.btn.btn-danger");
       deleteBtn.addEventListener("click", function (event) {
         if (noOfElement > 0) {
-          event.target.closest(".passenger__details").remove();
+          event.target.closest(".row.w-100.gap-2").remove();
           noOfElement--;
         }
         console.log(noOfElement);
@@ -175,45 +188,61 @@ class BookingView extends View {
   }
   getHTML(trainDetails) {
     return `<div class= "booking p-3">
-        <div class="booking__details">
+      <a href="/user-home">&larr;&nbsp;Back</a>
+        <div class="booking__details d-flex flex-column align-items-center">
           <h2 class="booking__details">Train Details</h2>
-          <p class="booking__train-name">
+          <p class="mb-0">
             Train Name:
-            <span class="booking__train-name-bold">
+            <span>
               ${trainDetails.trainName} (${trainDetails.trainNumber})</span
             >
           </p>
-          <p class="booking__train-journey">${trainDetails.fromStation} (${trainDetails.fromStationID}) - ${trainDetails.toStation} (${trainDetails.toStationID})</p>
-          <p class="booking__train-class-name">CLASS NAME (${trainDetails.className})</p>
-          <p class="booking__train-price-details">$ ${trainDetails.ticketPrice}</p>
-          <p class="booking__train-departure">DEPARTURE TIME : (${trainDetails.departureTime})</p>
-          <div class="booking__train-duration">DURATION : (${trainDetails.duration})</div>
-          <p class="booking__train-arrival">ARRIVAL TIME : (${trainDetails.arrivalTime})</p>
+          <p class="mb-0">${trainDetails.fromStation} (${trainDetails.fromStationID}) - ${trainDetails.toStation} (${trainDetails.toStationID})</p>
+          <p class="mb-0">CLASS NAME (${trainDetails.className})</p>
+          <p class="mb-0">$ ${trainDetails.ticketPrice}</p>
+          <p class="mb-0">DEPARTURE TIME : (${trainDetails.departureTime})</p>
+          <p class="mb-0">DURATION : (${trainDetails.duration})</p>
+          <p class="mb-0">ARRIVAL TIME : (${trainDetails.arrivalTime})</p>
         </div>
         <form id="booking__form" class="booking__form">
-          <div class="passenger__details">
-            <div class="passenger__details__form__group">
-              <label for="passengerName[0]">Passenger Name</label>
+          <div class="row m-0 w-100 gap-2 mb-3">
+          <p class="fs-4 mb-0">Passenger Details</p>
+            <div class="col-md-3 p-0 ">
+            <div class="form-floating">
+              
               <input
+              placeholder="Passeenger Age"
+                class="form-control"
                 type="text"
                 id="passengerName[0]"
                 name="passengerName[0]"
                 required
               />
+              <label for="passengerName[0]">Passenger Name</label>
             </div>
-            <div class="passenger__details__form__group">
-              <label for="passengerAge[0]">Passenger Age</label>
+            </div>
+            <div class="col-md-2 p-0">
+
+            <div class="form-floating">
+              
               <input
-                type="text"
+                placeholder="Passenger Age"
+                class="form-control"
+                type="number"
+                min="1"
+                max="100"
                 id="passengerAge[0]"
                 name="passengerAge[0]"
                 required
               />
+              <label for="passengerAge[0]">Passenger Age</label>
             </div>
+            </div>
+            <div class="col-md-3 p-0">
 
-            <div class="passenger__details__form__group">
-              <label for="passengerGender[0]">Passenger Gender</label>
+            <div class="form-floating">
               <select
+                class="form-select"
                 type="text"
                 id="passengerGender[0]"
                 name="passengerGender[0]"
@@ -223,11 +252,15 @@ class BookingView extends View {
                 <option value="FEMALE">FEMALE</option>
                 <option value="OTHER">OTHER</option>
               </select>
+              
+              <label for="passengerGender[0]">Gender</label>
             </div>
+            </div>
+            <div class="col-md-3 p-0">
 
-            <div class="passenger__details__form__group">
-              <label for="passengerPreference[0]">Seat Perference</label>
+            <div class="form-floating">
               <select
+                class="form-select"
                 type="text"
                 id="passengerPreference[0]"
                 name="passengerPreference[0]"
@@ -236,6 +269,9 @@ class BookingView extends View {
 
               ${this.getPreferences(trainDetails.className).map((item) => `<option value="${item}">${item}</option>`).join("")}
               </select>
+              
+              <label for="passengerPreference[0]">Perference</label>
+            </div>
             </div>
           </div>
           <button type="button" id="add-passenger" class="form__button">ADD PASSENGER</button>

@@ -1,4 +1,3 @@
-import { state } from "../../models.js";
 import AdminLogoutView from "./AdminLogoutView.js";
 import PrepareChartView from "./PrepareChartView.js";
 import View from "../View.js";
@@ -6,6 +5,7 @@ import RouteHomeView from "./RouteHomeView.js";
 import StationsHomeView from "./StationsHomeView.js";
 import TrainHomeView from "./TrainHomeView.js";
 import TripsHomeView from "./TripsHomeView.js";
+// import AdminProfileView from "./AdminProfileView.js";
 
 class AdminHomePageView extends View {
   links = [
@@ -15,6 +15,7 @@ class AdminHomePageView extends View {
     { label: "Trips", view: TripsHomeView },
     { label: "Prepare Chart", view: PrepareChartView },
     { label: "Logout", view: AdminLogoutView },
+    // { label: "Profile", view: AdminProfileView },
   ];
   parentElement = document.querySelector(".container-fluid");
   constructor() {
@@ -29,11 +30,6 @@ class AdminHomePageView extends View {
     TrainHomeView.render();
 
   }
-  /*<nav id="sidebar" class="d-flex flex-shrink-0 p-1  text-bg-dark" >
-      <ul class="nav nav-pills mb-auto gap-2">
-        ${this.links.map(item => `<li data-target="${item.label}" class="nav-item nav-link text-light ">${item.label}</li>`).join("")}  
-      </ul>
-    </nav>*/
   getHTML() {
     return `
     <div class="row m-0 w-100">
@@ -62,9 +58,9 @@ class AdminHomePageView extends View {
     sidebar.addEventListener("click", (event) => {
       if (event.target.tagName === "LI") {
         event.target.closest("ul").querySelectorAll("li").forEach(element => {
-          element.classList.remove("active");
+          element.classList.remove("bg-primary");
         });
-        event.target.classList.add("active");
+        event.target.classList.add("bg-primary");
 
         const viewToBeRendered = this.links.find(item => item.label === event.target.innerText);
         viewToBeRendered.view.render();
