@@ -39,7 +39,7 @@ class PrepareChartView extends View {
     return `
     <ul class="list-group">
       ${trips.map(item => {
-      const { tripID, trainID, routeID, trainNo, trainName, routeNo, routeName, startTime, day } = state.trips.find(trip => trip.tripID === item);
+        const { tripID, trainID, trainNo, trainName, routeNo, routeName, startTime, day } = state.trips.find(trip => trip.tripID === item);
       let dayNo = day;
       return `<li class="list-group-item" data-trip-id="${tripID}" data-train-id="${trainID}" >
         <div class="d-flex justify-content-between gap-2 align-items-center">
@@ -47,7 +47,7 @@ class PrepareChartView extends View {
             <b>${trainName} (${trainNo})</b> via <b>${routeNo} - ${routeName}</b> on ${this.days.find((day) => day.value === dayNo).name} at ${startTime}
           </span>
           <div class="d-flex gap-2">
-            <button class="btn btn-primary py-1 px-2 edit-trip-btn" data-bs-toggle="modal" data-bs-target="#editTripModal" data-train-id="${trainID}" data-day-no="${day}" data-trip-id="${tripID}">Prepare Chart</button>
+            <button class="btn btn-primary py-1 px-2 edit-trip-btn" data-train-id="${trainID}" data-day-no="${day}" data-trip-id="${tripID}">Prepare Chart</button>
             
           </div>
         </div>

@@ -1,0 +1,67 @@
+<nav class="navbar bg-dark">
+  <div class="nav-brand"></div>
+  <ul class="nav">
+    <li class="nav-item">
+      <a class="text-light nav-link text-light" href="/">Homepage</a>
+    </li>
+    <li class="nav-item"> 
+      <a class="nav-link text-light" href="/{{#if user}}admin{{else}}user{{/if}}-login">
+      {{#if user}}
+        Admin
+      {{else}}
+        User
+      {{/if}} Login</a>
+    </li>
+  </ul>
+</nav>
+<div class="form__container col-md-6 text-center">
+  <div class="login mx-auto">
+    <form id="login-form">
+      <h1 class="h3 mb-3 fw-normal">
+        {{#if user}}
+          User
+        {{else}}
+          Admin
+        {{/if}} Login</h1>
+      <div class="form-floating mb-3">
+        <input
+          type="email"
+          class="form-control"
+          id="username"
+          name="username"
+          placeholder="name@example.com"
+        />
+        <label for="username">Email address</label>
+        <span class="form-text text-danger"></span>
+      </div>
+      <div class="input-group">
+        <div class="form-floating">
+          <input
+            type="password"
+            class="form-control"
+            id="{{type}}password"
+            placeholder="Password"
+            name="{{type}}password"
+          />
+          <label for="{{type}}password">Password</label>
+        </div>
+        <span class="input-group-text show-password open"><i
+            class="fa-solid fa-eye"
+          ></i></span>
+      </div>
+      <span class="form-text text-danger d-block mb-3"></span>
+      <button class="btn btn-primary w-100 py-2 mb-3" type="submit">
+        Sign in
+      </button>
+      {{#if user}}
+        <button
+          id="register-now-btn"
+          class="btn btn-outline-secondary w-100 py-2"
+          type="button"
+        >
+          Register Now
+        </button>
+      {{/if}}
+    </form>
+  </div>
+</div>

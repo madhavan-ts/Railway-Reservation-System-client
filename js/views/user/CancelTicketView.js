@@ -25,7 +25,7 @@ class CancelTicketView extends View {
       <div class="row w-100 m-0">
         <div class="col-md-8 my-3 mx-auto p-4 p-md-0">
           <h2 class="h2">Cancel Ticket</h2>
-          <div class="my-3 d-flex flex-column gap-3" id="pnr_details">
+          <div class="my-3 d-flex flex-column gap-3" id="passenger__details">
             ${details.map(detail => this.renderPNRDetails(detail)
     ).join("")}
           </div>
@@ -36,7 +36,9 @@ class CancelTicketView extends View {
 
   renderPNRDetails(pnrDetails) {
     const { trainNo, trainName, className, departureTime, dateOfJourney, fromStationID, fromStation, toStationID, toStation, passengers, pnrNo } = pnrDetails
-    return `<div class="d-flex flex-column align-items-center">
+    return `
+    <div class="pnr_details">
+    <div class="d-flex flex-column align-items-center">
           <span class="fs-5 fw-bold">
             ${trainNo} - ${trainName}
           </span>
@@ -51,8 +53,9 @@ class CancelTicketView extends View {
           <span> PNR No : ${pnrNo}</span>
 
       </div>
-      <div class="passenger__details">
+      <div>
         ${passengers.map((item) => this.getPassengerCard(item)).join("")}
+      </div>
       </div>`;
   }
 
@@ -102,7 +105,7 @@ class CancelTicketView extends View {
 
 
   addEventHandlers() {
-    document.querySelector(".passenger__details").addEventListener("click", async (event) => {
+    document.getElementById("passenger__details").addEventListener("click", async (event) => {
       console.log(event);
       if (event.target.tagName === "BUTTON") {
         console.log("cancel button clicked");
@@ -126,7 +129,11 @@ class CancelTicketView extends View {
           this.hideSpinner();
           if (data.success) {
             this.renderToast(data.message, true);
+            let pnrContainer = event.target.closest(".pnr_details");
             event.target.closest(".card").remove();
+            if (pnrContainer.querySelectorAll(".card").length == 0) {
+              pnrContainer.remove();
+            }
           }
           else
             this.renderToast(data.message);

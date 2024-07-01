@@ -1,0 +1,30 @@
+<div class="row m-0 w-100">
+  <nav id="{{type}}_navbar" class="navbar navbar-expand-md text-light bg-dark">
+    <div class="container-fluid p-2">
+      <button
+        class="navbar-toggler p-2 text-bg-light"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#{{type}}NavBarToggle"
+        aria-controls="{{type}}NavBarToggle"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon text-light"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="{{type}}NavBarToggle">
+        <ul class="navbar-nav me-auto mt-2 mb-2 mb-lg-0 gap-2">
+        {{#each links}}
+          <li
+            data-target="{{this.label}}"
+            class="nav-item nav-link text-light rounded px-2 mx-2"
+          >
+          {{this.label}}
+          </li>
+        {{/each}}
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="{{type}}__content p-4"></div>
+</div>

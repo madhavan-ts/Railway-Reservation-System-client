@@ -1,0 +1,74 @@
+<div class="d-flex flex-column align-items-center">
+  <span class="fs-5 fw-bold">
+    {{trainNo}}
+    -
+    {{trainName}}
+  </span>
+  <span>Date Of Journey - {{formatDate dateOfJourney}}</span>
+  <span>Departure time : {{startTime}}</span>
+  <div class="d-flex flex-column flex-md-row gap-md-3 align-items-center">
+    <span class="fs-6">{{fromStationName}} ({{fromStationID}})</span>
+    <span>-</span>
+    <span class="fs-6">{{toStationName}} ({{toStationID}})</span>
+  </div>
+  <span class="my-2"> CLASS : {{className}}</span>
+  {{#if pnr}}
+    <span> PNR No : {{pnr}}</span>
+  {{/if}}
+</div>
+{{#each status as |passenger|}}
+  {{#with passenger}}
+    <div class="card" 
+      {{#if (isConfirmed ticketStatus)}}
+        data-confirmed-id="{{ticketID}}"
+      {{else}}
+        data-waiting-id="{{ticketID}}"
+      {{/if}}
+    >
+      <div class="card-header d-flex justify-content-between">
+        Passenger Details
+      </div>
+      <div class="card-body">
+      <div class="d-flex gap-2 justify-content-between">
+          <span>Name : </span>
+          <span>{{passengerName}}</span>
+        </div>
+        <div class="d-flex gap-2 justify-content-between">
+          <span>Gender : </span>
+          <span>{{passengerGender}}</span>
+        </div>
+        <div class="d-flex gap-2 justify-content-between">
+          <span>Age : </span>
+          <span>{{passengerAge}}</span>
+        </div>
+        <div class="d-flex gap-2 justify-content-between">
+          <span>Status : </span>
+          <span class="{{#if (isConfirmed ticketStatus)}}
+                          text-success
+                        {{else}}
+                          text-danger
+                        {{/if}}">
+            {{caps ticketStatus}}
+          </span>
+        </div>
+        
+        {{#if (isConfirmed ticketStatus)}}
+          <div class="d-flex gap-2 justify-content-between">
+            <span>Seat No : </span>
+            <span>{{seatNo}}</span>
+          </div>
+          <div class="d-flex gap-2 justify-content-between">
+            <span>Compartment No : </span>
+            <span>{{compartmentNo}}</span>
+          </div>
+        {{else}}
+          <div class="d-flex gap-2 justify-content-between">
+            <span>Waiting List No : </span>
+            <span>{{waitingListNo}}</span>
+          </div>
+        {{/if}}
+      
+    </div>
+    </div>
+  {{/with}}
+{{/each}}

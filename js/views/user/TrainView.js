@@ -23,7 +23,7 @@ class TrainView extends View {
   render(data) {
 
     this.data = data;
-    console.log();
+    // console.log();
     this.parentElement = document.querySelector("#train__details");
     this.parentElement.innerHTML = "";
     this.parentElement.innerHTML = this.getMarkup(data);
@@ -39,7 +39,6 @@ class TrainView extends View {
           routeID: trainElement.getAttribute("data-route-id"),
           trainName: trainElement.getAttribute("data-train-name"),
           routeName: trainElement.getAttribute("data-route-name"),
-
           trainNumber: trainElement.getAttribute("data-train-no"),
           routeNumber: trainElement.getAttribute("data-route-no"),
           departureTime: trainElement.getAttribute("data-departure-time"),
@@ -53,19 +52,19 @@ class TrainView extends View {
           // className: classElement.getAttribute("data-class"),
           // ticketPrice: classElement.getAttribute("data-price")
         };
-        state.selectedTrain = { ...selectedTrain };
-        // console.log(selectedTrain);
+        // state.selectedTrain = { ...selectedTrain };
+        // console.log(state.selectedTrain);
         if (event.target.matches(".check-btn")) {
           selectedTrain = {
             ...selectedTrain,
             className: classElement.getAttribute("data-class"),
             ticketPrice: classElement.getAttribute("data-price"),
           };
-          console.log("Check Status");
+          // console.log("Check Status");
 
-          console.log(selectedTrain);
+          // console.log(selectedTrain);
           state.selectedTrain = { ...selectedTrain };
-          console.log("stateVariable", state.selectedTrain);
+          // console.log("stateVariable", state.selectedTrain);
           getSeatAvailability(selectedTrain);
         } else if (event.target.matches(".book-btn")) {
           selectedTrain = {
@@ -74,7 +73,7 @@ class TrainView extends View {
             ticketPrice: classElement.getAttribute("data-price"),
           };
           state.selectedTrain = { ...selectedTrain };
-          console.log("state Variable", state.selectedTrain);
+          // console.log("state Variable", state.selectedTrain);
           // BookingView.render();
           router.navigateTo("/book-ticket");
 

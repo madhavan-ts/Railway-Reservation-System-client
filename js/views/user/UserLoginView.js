@@ -1,5 +1,5 @@
 import { BASE_URL } from "../../config.js";
-import { state } from "../../models.js";
+import { getHandlebar, state } from "../../models.js";
 import UserRegisterView from "./UserRegisterView.js";
 import View from "../View.js";
 import UserHomePageView from "./UserHomePageView.js";
@@ -11,67 +11,12 @@ class UserLoginView extends View {
     super();
   }
 
-  render() {
+  async render() {
     document.title = "User Login Page";
-    this.parentElement.innerHTML = this.getHTML();
+    this.parentElement.innerHTML = await getHandlebar("./js/templates/login-page.hbs", { type: "user", user: true });
     this.addEventHandlers();
   }
 
-  getHTML() {
-    return ` 
-    <nav class="navbar bg-dark">
-      <div class="nav-brand"></div>
-      <ul class="nav">
-      <li class="nav-item">
-          <a class="text-light nav-link text-light" href="/">Homepage</a>
-        </li>
-        <li class="nav-item ">
-          <a class="nav-link text-light" href="/admin-login">Admin Login</a>
-        </li>
-      </ul>
-    </nav>
-    <div class="form__container col-md-6 text-center">
-    <div class="login mx-auto">
-        <form id="login-form">
-          <h1 class="h3 mb-3 fw-normal">User Login</h1>
-          <div class="form-floating mb-3">
-            <input
-              type="email"
-              class="form-control"
-              id="useremail"
-              name="username"
-              placeholder="name@example.com"
-            />
-            <label for="useremail">Email address</label>
-            <span class="form-text text-danger"></span>
-          </div>
-          <div class="input-group">
-            <div class="form-floating">
-              <input
-                type="password"
-                class="form-control"
-                id="userpassword"
-                placeholder="Password"
-                name="password"
-              />
-              <label for="userpassword">Password</label>
-            </div>
-            <span class="input-group-text show-password open"
-              ><i class="fa-solid fa-eye"></i
-            ></span>
-          </div>
-          <span class="form-text text-danger d-block mb-3"></span>
-          <button class="btn btn-primary w-100 py-2 mb-3" type="submit">
-            Sign in
-          </button>
-          <button id="register-now-btn" class="btn btn-outline-secondary w-100 py-2" type="button">
-            Register Now
-          </button>
-        </form>
-      </div>
-      </div>
-    `;
-  }
 
   addEventHandlers() {
     const form = this.parentElement.querySelector("#login-form");
@@ -104,7 +49,7 @@ class UserLoginView extends View {
     const formData = new FormData(form);
     const data = {
       username: formData.get("username"),
-      password: formData.get("password"),
+      password: formData.get("userpassword"),
     };
 
     if (data.username.trim() === "" || data.password.trim() === "") {

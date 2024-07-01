@@ -1,7 +1,8 @@
 import View from "./views/View.js"
-import { loadRoutes, loadStations, loadTrains, loadTrips, state } from "./models.js";
+import { getHandlebar, loadRoutes, loadStations, loadTrains, loadTrips, state } from "./models.js";
 import router from "./router.js";
 import HomeView from "./views/HomeView.js";
+import Handlebars from "./helpers.js";
 
 document.addEventListener("click", (event) => {
   if (event.target.tagName === "A") {

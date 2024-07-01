@@ -19,7 +19,7 @@ class Router {
       title: "User Register Page",
     },
     {
-      pathname: "/login",
+      pathname: "/user-login",
       view: UserLoginView,
       title: "User Login Page",
     },

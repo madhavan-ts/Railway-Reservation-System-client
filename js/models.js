@@ -1,5 +1,4 @@
 import { BASE_URL } from "./config.js"
-// import { getDataAsJSON } from "./utilities.js";
 
 export const getDataAsJSON = async function (url) {
   try {
@@ -19,14 +18,7 @@ export const state = {
   selectedTrain: {},
   isUserLoggedIn: false,
   isAdminLoggedIn: false,
-  userDetails: {
-    // username:,
-    // firstName:,
-    // lastName:,
-    // address:,
-    // gender:,
-    // dob:
-  },
+  userDetails: {},
   adminDetails: {
     username: "",
 
@@ -90,3 +82,10 @@ export const getTrainSchedule = async function (sourceStation, destinationStatio
 
 
 
+export const getHandlebar = async (templateURL, data) => {
+  const response = await fetch(templateURL);
+  const html = await response.text();
+
+  const template = Handlebars.compile(html);
+  return template(data);
+}

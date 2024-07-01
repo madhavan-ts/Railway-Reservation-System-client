@@ -83,7 +83,7 @@ body {
 .train__details {
   width: 100%;
   margin: auto;
-  padding: 1rem;
+  margin-top: 1rem;
 }
 .train__card {
   list-style-type: none;
@@ -137,7 +137,8 @@ body {
   max-height: 10rem;
   overflow-y: scroll;
   z-index: 100;
-  background-color: #b4b2c8;
+  background-color: white;
+  border: 2px solid #ccc;
 }
 .stations-list {
   list-style-type: none;
@@ -147,7 +148,7 @@ body {
   padding: 0.5rem;
 }
 .stations-item:hover {
-  background-color: #9794b3;
+  background-color: #e6e6e6;
 }
 
 .hidden {
@@ -170,52 +171,7 @@ body {
 .passenger__details {
   display: flex;
   gap: 1rem;
-  margin-bottom: 1rem;
-}
-.passenger__details > * {
-  flex-grow: 1;
-}
-.passenger__details__form__group {
-  display: flex;
   flex-direction: column;
-  justify-content: last baseline;
-  gap: 0.5rem;
-}
-.passenger__details__form__group label {
-  font-weight: 600;
-}
-.passenger__details__form__group input,
-.passenger__details__form__group select {
-  padding: 0.25rem;
-  border: 2px solid #ccc;
-  border-radius: 5px;
-}
-.passenger__details__form__group option {
-  padding: 0.5rem;
-}
-.passenger__details .delete-btn {
-  max-width: fit-content;
-  font-size: 1rem;
-  align-self: flex-end;
-  padding: 0.5rem;
-  color: white;
-  background-color: #1e00ff;
-  border: 0;
-  border-radius: 5px;
-}
-
-.popup {
-  position: fixed;
-  padding: 1rem;
-  max-width: 300px;
-  background-color: #ffd0d0;
-  top: 2rem;
-  height: auto;
-  transition: all 0.5s ease-in;
-  left: 50%;
-  transform: translateX(-50%);
-  opacity: 0;
-  z-index: -1;
 }
 
 .login,

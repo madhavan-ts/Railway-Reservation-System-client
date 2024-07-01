@@ -1,4 +1,4 @@
-import { state } from "../../models.js";
+import { getHandlebar, state } from "../../models.js";
 import router from "../../router.js";
 
 class UserLogoutView {
@@ -7,9 +7,9 @@ class UserLogoutView {
 
   }
 
-  render() {
+  async render() {
     this.parentElement = document.querySelector(".user__content");
-    this.parentElement.innerHTML = this.getHTML();
+    this.parentElement.innerHTML = await getHandlebar("./js/templates/logout-page.hbs", { user: true });
     state.userDetails = {};
     state.isUserLoggedIn = false;
     document.getElementById("user_navbar").remove();
@@ -23,15 +23,6 @@ class UserLogoutView {
       clearInterval(interval);
       router.navigateTo("/");
     }, 6000);
-  }
-
-  getHTML() {
-    return `
-    <div class="w-100 text-center">
-      <p class="fs-4" >You have been logged out of the Users page</p>
-      <p> You will be redirected to Homepage in <span id="seconds"></></p>
-    </div>
-    `
   }
 
 }
