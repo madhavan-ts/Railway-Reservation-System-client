@@ -1,11 +1,8 @@
 <nav class="navbar bg-dark">
   <div class="nav-brand"></div>
   <ul class="nav">
-    <li class="nav-item">
-      <a class="text-light nav-link text-light" href="/">Homepage</a>
-    </li>
     <li class="nav-item"> 
-      <a class="nav-link text-light" href="/{{#if user}}admin{{else}}user{{/if}}-login">
+      <a class="nav-link text-light" href="/{{#if user}}admin-login{{/if}}">
       {{#if user}}
         Admin
       {{else}}

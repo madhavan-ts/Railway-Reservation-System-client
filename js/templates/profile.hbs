@@ -1,0 +1,33 @@
+<h2 class="heading">Profile Page <button role="button" class="btn btn-primary py-1 px-2" id="edit-btn"><i class="fa-regular fa-pen-to-square"></i></button></h2>
+<div>
+  <form id="profile-form" class="d-flex flex-column gap-4">
+    <div class="row">
+      <div class="form-group col-md-6">
+        <label for="firstName">Firstname</label>
+        <input class="form-control" type="text" name="firstName" id="firstName" disabled required>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="lastName">Lastname</label>
+        <input class="form-control" type="text" name="lastName" id="lastName" disabled required>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 form-group">
+        <label for="gender">Gender</label>
+        <select class="form-select" name="gender" id="gender" disabled required >
+          <option value="FEMALE">FEMALE</option>
+          <option value="MALE">MALE</option>
+          <option value="OTHER">OTHER</option>
+        </select>
+      </div>
+      <div class="col-md-6 form-group">
+        <label for="dob">Date of Birth</label>
+        <input type="date" id="dob" name="dob" class="form-control" disabled required>
+      </div>
+    </div>
+    <div class="col-md-12 form-group">
+      <label for="address">Address</label>
+      <textarea rows="5" name="address" id="address" class="form-control" disabled required></textarea>
+    </div>
+  </form>
+</div>

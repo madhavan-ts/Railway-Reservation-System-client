@@ -1,4 +1,5 @@
 import { BASE_URL } from "../../config.js";
+import Handlebars from "../../helpers.js";
 import { getDataAsJSON, getHandlebar, state } from "../../models.js";
 import View from "../View.js";
 
@@ -29,9 +30,10 @@ class BookingDetails extends View {
     `
   }
 
-  async renderBookingDetails(details, pnr) {
+  renderBookingDetails(details, pnr) {
     let passengerDetailsContainerElement = document.getElementById("passenger-details")
-    passengerDetailsContainerElement.innerHTML = await getHandlebar("./js/templates/pnr-details.hbs", {
+     let template = Handlebars.templates["pnr-details.hbs"];
+     passengerDetailsContainerElement.innerHTML = template({
       ...state.selectedTrain,
       trainNo: state.selectedTrain.trainNumber,
       startTime: state.selectedTrain.departureTime,

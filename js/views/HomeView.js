@@ -1,3 +1,5 @@
+import router from "../router.js";
+
 class HomeView {
   parentElement = document.querySelector(".container-fluid");
 
@@ -6,19 +8,9 @@ class HomeView {
   }
 
   render() {
-    this.parentElement.innerHTML = "";
-    this.parentElement.innerHTML = this.getHTML();
+    router.navigateTo("/user-login");
   }
 
-
-  getHTML() {
-    return `
-      <p>Home Page</p>
-      <a href="/user-login">Go to Login Page</a>
-      <br>
-      <a href="/admin-login"> Go to Admin Login page
-    `;
-  }
 
 
 }

@@ -10,10 +10,10 @@ class TrainFormsView extends View {
     super();
   }
 
-  render() {
+  async render() {
     document.title = "Search Trains";
     this.renderSpinner();
-    loadStations();
+    await loadStations();
     this.parentElement = document.querySelector(".user__content");
     this.renderPage(state.stations);
     this.hideSpinner();
@@ -77,7 +77,7 @@ class TrainFormsView extends View {
         );
         targetField.value = name;
         targetField.setAttribute("data-value", value);
-        console.log(targetField.getAttribute("data-value"));
+        // console.log(targetField.getAttribute("data-value"));
         item.classList.add("hidden");
       });
     });
@@ -92,7 +92,7 @@ class TrainFormsView extends View {
         let sourceElement = form.querySelector("#source");
         let destinationElement = form.querySelector("#destination");
         let dateOfJourneyElement = form.querySelector("#dateOfJourney");
-        console.log(sourceElement, destinationElement, dateOfJourneyElement);
+        // console.log(sourceElement, destinationElement, dateOfJourneyElement);
         state.search.source = sourceElement.getAttribute("data-value");
         state.search.sourceStationName = sourceElement.value;
         state.search.destination =
@@ -120,8 +120,8 @@ class TrainFormsView extends View {
             `${BASE_URL}/api/train/search?source=${state.search.source}&destination=${state.search.destination}&dateOfJourney=${state.search.dateOfJourney}`
           );
           const data = await response.json();
-          console.log(response);
-          console.log(data);
+          // console.log(response);
+          // console.log(data);
           if (data.success) {
             TrainView.render(data.data);
           } else {
@@ -137,7 +137,7 @@ class TrainFormsView extends View {
   getMarkup() {
     return `
     <div class="col-md-10 w-100">
-    <div class="bg-body-secondary p-3">
+    <div>
       <form class="d-flex flex-column gap-3"  id="train-search-form">
       <div class="row g-3">
         <div class="col-sm-4">
@@ -179,6 +179,7 @@ class TrainFormsView extends View {
               name="dateOfJourney"
               id="dateOfJourney"
               required
+              min=${new Date().toISOString().split('T')[0]}
             />
             <label for="dateOfJourney">Date of Journey</label>
           </div>

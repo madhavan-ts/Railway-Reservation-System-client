@@ -23,7 +23,7 @@ class PrepareChartView extends View {
     this.parentElement = document.querySelector(".admin__content");
     try {
       const response = await getDataAsJSON(`${BASE_URL}/api/admin/get-available-chart-prepare-trips`);
-      console.log(response);
+      // console.log(response);
       if (response.success) {
         this.parentElement.innerHTML = this.getHTML(response.tripIDs);
       } else {
@@ -33,6 +33,7 @@ class PrepareChartView extends View {
     } catch (err) {
       console.log(err);
     }
+    this.addEventHandler();
   }
 
   getHTML(trips) {
@@ -57,16 +58,17 @@ class PrepareChartView extends View {
       </ul>`
   }
   addEventHandler() {
-    document.querySelector(".list-group").addEventListener("click", async function (event) {
+    document.querySelector(".list-group").addEventListener("click", async (event) => {
+      console.log(event);
       if (event.target.tagName === "BUTTON") {
         let listItem = event.target.closest("li.list-group-item");
         let trainID = listItem.getAttribute("data-train-id");
         let tripID = listItem.getAttribute("data-trip-id");
         let requestdata = {
-          trainID: trainID,
-          tripID: tripID
+          trainID: parseInt(trainID),
+          tripID: parseInt(tripID)
         }
-
+        console.log(requestdata);
         try {
           const response = await fetch(`${BASE_URL}/api/admin/prepare-chart`, {
             method: "POST",
@@ -78,13 +80,14 @@ class PrepareChartView extends View {
             body: JSON.stringify(requestdata)
           });
           const data = await response.json();
-          console.log(data);
+          // console.log(data);
           if (data.success) {
             this.renderToast("Chart Prepared Successfully", true);
           } else {
             this.renderToast(data.message);
           }
         } catch (error) {
+          console.log(error);
           this.renderToast(error);
         }
       }

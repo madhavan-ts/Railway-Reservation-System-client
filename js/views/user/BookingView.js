@@ -29,7 +29,7 @@ class BookingView extends View {
         }
         passengerDetailsList.push(map);
       }
-      console.log(passengerDetailsList);
+      // console.log(passengerDetailsList);
 
       let submittedDetails = {
         username: state.userDetails.username,
@@ -45,7 +45,7 @@ class BookingView extends View {
         toStationID: state.selectedTrain.toStationID,
         passengers: [...passengerDetailsList]
       };
-      console.log(submittedDetails);
+      // console.log(submittedDetails);
 
       try {
         self.renderSpinner();
@@ -62,7 +62,7 @@ class BookingView extends View {
         const result = await response.json();
         self.hideSpinner();
         // if(result.success){
-        console.log(result);
+        // console.log(result);
         // }
         BookingDetailView.render([...result.booked, ...result.waitingList], result.pnr);
 
@@ -75,7 +75,7 @@ class BookingView extends View {
     const addPassenger = (i) => {
       let passengerButton = document.getElementById("add-passenger");
       let passengerDetailsElement = document.createElement("div");
-      passengerDetailsElement.classList.add("row", "m-0", "w-100", "gap-2", "mb-2");
+      passengerDetailsElement.classList.add("row", "m-0", "w-100", "gap-2", "mb-2", "passenger-detail");
       passengerDetailsElement.innerHTML = `
           <p class="fs-4 mb-0">Passenger Details<button type="button" class="delete-btn btn btn-danger mx-3">
             <i class="fa-solid fa-trash"></i>
@@ -154,7 +154,7 @@ class BookingView extends View {
           event.target.closest(".row.w-100.gap-2").remove();
           noOfElement--;
         }
-        console.log(noOfElement);
+        // console.log(noOfElement);
       });
 
     }
@@ -167,7 +167,7 @@ class BookingView extends View {
       }
       addPassenger(noOfElement);
       noOfElement++;
-      console.log(noOfElement);
+      // console.log(noOfElement);
     });
 
     document.querySelector("[type='submit']");

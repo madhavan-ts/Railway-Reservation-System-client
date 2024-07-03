@@ -11,9 +11,12 @@
     <span>-</span>
     <span class="fs-6">{{toStationName}} ({{toStationID}})</span>
   </div>
-  <span class="my-2"> CLASS : {{className}}</span>
+  <p class="my-2"> CLASS : {{className}}</p>
   {{#if pnr}}
-    <span> PNR No : {{pnr}}</span>
+    <p> PNR No : {{pnr}}</p>
+  {{/if}}
+  {{#if alloted}} 
+    <p class="fw-bold "> Number of seat alloted for the waiting passengers : {{alloted}}</p>
   {{/if}}
 </div>
 {{#each status as |passenger|}}

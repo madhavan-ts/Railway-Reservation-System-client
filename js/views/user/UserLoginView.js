@@ -4,6 +4,7 @@ import UserRegisterView from "./UserRegisterView.js";
 import View from "../View.js";
 import UserHomePageView from "./UserHomePageView.js";
 import router from "../../router.js";
+// import Handlebars from "../../helpers.js";
 
 class UserLoginView extends View {
   parentElement = document.querySelector(".container-fluid");
@@ -11,9 +12,10 @@ class UserLoginView extends View {
     super();
   }
 
-  async render() {
+  render() {
     document.title = "User Login Page";
-    this.parentElement.innerHTML = await getHandlebar("./js/templates/login-page.hbs", { type: "user", user: true });
+    let template = Handlebars.templates["login-page.hbs"];
+    this.parentElement.innerHTML = template({ type: "user", user: true });
     this.addEventHandlers();
   }
 
@@ -38,7 +40,7 @@ class UserLoginView extends View {
       }
     });
     form.querySelector("#register-now-btn").addEventListener("click", () => {
-      console.log("To Register");
+      // console.log("To Register");
       UserRegisterView.render();
     });
   }
@@ -55,7 +57,7 @@ class UserLoginView extends View {
     if (data.username.trim() === "" || data.password.trim() === "") {
       this.renderToast("Username and Password cannot be blank");
     }
-
+    this.renderSpinner();
     // if(data.user)
 
     try {
@@ -69,21 +71,22 @@ class UserLoginView extends View {
         body: JSON.stringify(data),
       });
 
-      console.log(response);
+      // console.log(response);
       const result = await response.json();
-      console.log(result);
+      // console.log(result);
       if (!result.success) {
         this.renderToast(result.message);
+        this.hideSpinner();
         return;
       }
 
       state.isUserLoggedIn = true;
       state.userDetails.username = data.username;
+      localStorage.setItem("USESSIONID", result.USESSIONID);
+
       this.renderToast("User Login Successful", true);
+      this.hideSpinner();
       router.navigateTo("/user-home");
-
-
-      // state.isUserLoggedIn = true
     } catch (error) {
       console.log(error);
       this.renderToast("Cannot Connect to Server");

@@ -219,34 +219,41 @@ class UserRegisterView extends View {
       this.renderToast("Address field should not be empty");
       return;
     }
+    this.renderSpinner();
+    // console.log(JSON.stringify(data));
+    try {
 
-    console.log(JSON.stringify(data));
-    const response = await fetch(`${BASE_URL}/api/users/register`, {
-      method: "POST",
-      mode: "cors",
-      headers: new Headers({
-        "Content-Type": "application/json",
-        'Accept': 'application/json'
-      }),
-      body: JSON.stringify(data)
-    });
+      const response = await fetch(`${BASE_URL}/api/users/register`, {
+        method: "POST",
+        mode: "cors",
+        headers: new Headers({
+          "Content-Type": "application/json",
+          'Accept': 'application/json'
+        }),
+        body: JSON.stringify(data)
+      });
 
-    // const result = await response.json();
-    console.log(response);
-    console.log("loading");
-    const result = await response.json();
-    console.log(result);
-    if (!result.success) {
-      this.renderToast(result.message, true);
-      return;
+      // const result = await response.json();
+      // console.log(response);
+      // console.log("loading");
+      const result = await response.json();
+      // console.log(result);
+      if (!result.success) {
+        this.hideSpinner();
+        this.renderToast(result.message, true);
+        return;
+      }
+
+      state.userDetails.username = data.username;
+      state.isUserLoggedIn = true;
+      this.renderToast("User Registration Successful", true);
+      localStorage.setItem("USESSIONID", result.USESSIONID);
+      this.hideSpinner();
+      router.navigateTo("/user-home");
+    } catch (err) {
+      console.log(err);
+      this.renderToast("Cannot connect to server");
     }
-
-    state.userDetails.username = data.username;
-    state.isUserLoggedIn = true;
-    // TrainFormsView.showTrainsForm();
-    // showTrainForm();
-    // UserHomePageView.render();
-    router.navigateTo("/user-home");
 
   }
 

@@ -188,11 +188,15 @@ body {
 
 #loading {
   z-index: 999;
-  background-color: rgba(57, 57, 57, 0.2);
+  background-color: rgba(57, 57, 57, 0.218);
 }
 
 .admin__content {
   width: 100%;
+}
+
+.pointer {
+  cursor: pointer;
 }
 
 /*# sourceMappingURL=style.css.map */

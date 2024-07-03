@@ -54,19 +54,20 @@ class TrainView extends View {
         };
         // state.selectedTrain = { ...selectedTrain };
         // console.log(state.selectedTrain);
-        if (event.target.matches(".check-btn")) {
-          selectedTrain = {
-            ...selectedTrain,
-            className: classElement.getAttribute("data-class"),
-            ticketPrice: classElement.getAttribute("data-price"),
-          };
-          // console.log("Check Status");
+        // if (event.target.matches(".check-btn")) {
+        //   selectedTrain = {
+        //     ...selectedTrain,
+        //     className: classElement.getAttribute("data-class"),
+        //     ticketPrice: classElement.getAttribute("data-price"),
+        //   };
+        //   // console.log("Check Status");
 
-          // console.log(selectedTrain);
-          state.selectedTrain = { ...selectedTrain };
+        //   // console.log(selectedTrain);
+        //   state.selectedTrain = { ...selectedTrain };
           // console.log("stateVariable", state.selectedTrain);
-          getSeatAvailability(selectedTrain);
-        } else if (event.target.matches(".book-btn")) {
+        // getSeatAvailability(selectedTrain);
+        // } else 
+        if (event.target.matches(".book-btn")) {
           selectedTrain = {
             ...selectedTrain,
             className: classElement.getAttribute("data-class"),
@@ -79,30 +80,19 @@ class TrainView extends View {
 
         }
       });
+    document.querySelectorAll(".check-btn").forEach(async (item) => {
 
-    const getSeatAvailability = async function (data) {
-      const {
-        trainID,
-        tripID,
-        className,
-        dateOfJourney
-      } = { ...data };
-
-      const jsonResponse = await getDataAsJSON(
-        `${BASE_URL}/api/train/check-availability?trainID=${trainID}&tripID=${tripID}&dateOfJourney=${dateOfJourney}&className=${className}`
-      );
-      if (jsonResponse.success) {
-        if (jsonResponse.available) {
-          self.renderToast(`Seats are available - No Of Seats are : ${jsonResponse.seatCount}`, true);
-        } else {
-          self.renderToast(`Seats are not available - Waiting List No : ${jsonResponse.waitinglist}`, true);
-        }
-      } else {
-        self.renderToast(`${jsonResponse.message}`, false);
+      const classElement = item.closest("[data-class]");
+      const trainElement = item.closest("[data-train-no]");
+      const data = {
+        trainID: trainElement.getAttribute("data-train-id"),
+        tripID: trainElement.getAttribute("data-trip-id"),
+        className: classElement.getAttribute("data-class"),
+        dateOfJourney: state.search.dateOfJourney
       }
-      console.log(jsonResponse);
-      // return data;
-    };
+      item.innerText = await this.getSeatAvailability(data);
+    })
+
   }
 
   getMarkup(trains) {
@@ -172,6 +162,12 @@ class TrainView extends View {
         .join("")}
       </ul>
     `;
+    // document.querySelectorAll(".check-btn").forEach(item => {
+
+    //   const classElement = item.closest("[data-class]");
+    //   const trainElement = item.closest("[data-train-no]");
+    //   item.innerText = getSeatAvailability();
+    // })
   }
 
   getDaysString(dayNumbers) {
@@ -181,6 +177,31 @@ class TrainView extends View {
       })
       .join("-");
   }
+
+  getSeatAvailability = async function (data) {
+    const {
+      trainID,
+      tripID,
+      className,
+      dateOfJourney
+    } = { ...data };
+    console.log(data);
+    const jsonResponse = await getDataAsJSON(
+      `${BASE_URL}/api/train/check-availability?trainID=${trainID}&tripID=${tripID}&dateOfJourney=${dateOfJourney}&className=${className}`
+    );
+    if (jsonResponse.success) {
+      if (jsonResponse.available) {
+        // self.renderToast(`Seats are available - No Of Seats are : ${jsonResponse.seatCount}`, true);
+        return "AVAILABLE" + jsonResponse.seatCount;
+      } else {
+        // self.renderToast(`Seats are not available - Waiting List No : ${jsonResponse.waitinglist}`, true);
+        return "WL" + jsonResponse.waitinglist;
+      }
+
+    }
+    console.log(jsonResponse);
+    // return data;
+  };
 }
 
 export default new TrainView();

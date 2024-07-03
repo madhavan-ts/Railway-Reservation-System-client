@@ -1,5 +1,5 @@
 import { BASE_URL } from "../../config.js";
-import { getHandlebar, state } from "../../models.js";
+import { getHandlebar, loadRoutes, loadStations, loadTrains, loadTrips, state } from "../../models.js";
 import router from "../../router.js";
 import AdminHomePageView from "./AdminHomePageView.js";
 import View from "../View.js";
@@ -10,8 +10,9 @@ class AdminLoginView extends View {
     super();
   }
 
-  async render() {
-    this.parentElement.innerHTML = await getHandlebar("./js/templates/login-page.hbs", { user: false, type: "admin" });
+  render() {
+    let template = Handlebars.templates["login-page.hbs"];
+    this.parentElement.innerHTML = template({ user: false, type: "admin" });
     this.addEventHandler();
   }
 
@@ -49,7 +50,7 @@ class AdminLoginView extends View {
       return;
     }
 
-
+    this.renderSpinner();
     try {
       const response = await fetch(`${BASE_URL}/api/admin/login`, {
         method: "POST",
@@ -61,19 +62,27 @@ class AdminLoginView extends View {
         body: JSON.stringify(data)
       });
 
-      console.log(response);
+      // console.log(response);
       const result = await response.json();
-      console.log(result);
+      // console.log(result);
       if (!result.success) {
         this.renderToast(result.message);
+        this.hideSpinner();
         return;
       }
 
       state.isAdminLoggedIn = true;
+      localStorage.setItem("ASESSIONID", result.ASESSIONID);
       this.renderToast("Admin Login Successful", true);
-      state.adminDetails.username = data.username;
-      console.log("Admin forms to be displayed");
-      console.log(state.adminDetails);
+      state.adminDetails.username = result.username;
+
+      await loadRoutes();
+      await loadStations();
+      await loadTrains();
+      await loadTrips();
+      // console.log("Admin forms to be displayed");
+      // console.log(state.adminDetails);
+      this.hideSpinner();
       router.navigateTo("/admin-home");
     } catch (error) {
       console.log(error);

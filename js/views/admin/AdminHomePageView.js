@@ -7,6 +7,7 @@ import TrainHomeView from "./TrainHomeView.js";
 import TripsHomeView from "./TripsHomeView.js";
 import { getHandlebar, state } from "../../models.js";
 import router from "../../router.js";
+import Handlebars from "../../helpers.js";
 // import AdminProfileView from "./AdminProfileView.js";
 
 class AdminHomePageView extends View {
@@ -24,22 +25,21 @@ class AdminHomePageView extends View {
     super();
   }
 
-  async render() {
+  render() {
     if (state.isAdminLoggedIn === false) {
       this.renderToast("Not Logged in",);
       router.redirectTo("/admin-login");
       return;
     } 
-    this.parentElement.innerHTML = await this.getHTML();
+    let template = Handlebars.templates["navbar.hbs"];
+    this.parentElement.innerHTML = template({ type: "admin", links: this.links });
     this.addEventHandlers();
     // const sidebar = document.getElementById("sidebar");
     document.querySelector(`#admin_navbar li[data-target="Trains"]`).classList.add("bg-primary");
     TrainHomeView.render();
 
   }
-  async getHTML() {
-    return getHandlebar("./js/templates/navbar.hbs", { type: "admin", links: this.links });
-  }
+
 
 
   addEventHandlers() {

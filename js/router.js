@@ -10,19 +10,19 @@ class Router {
   routes = [
     {
       pathname: "/",
-      view: HomeView,
-      title: "Home Page",
+      view: UserLoginView,
+      title: "User Login Page",
     },
     {
       pathname: "/register",
       view: UserRegisterView,
       title: "User Register Page",
     },
-    {
-      pathname: "/user-login",
-      view: UserLoginView,
-      title: "User Login Page",
-    },
+    // {
+    //   pathname: "/user-login",
+    //   view: UserLoginView,
+    //   title: "User Login Page",
+    // },
     {
       pathname: "/book-ticket",
       view: BookingView,
@@ -51,9 +51,9 @@ class Router {
       document.title = foundPath.title;
       let viewToBeRendered = foundPath.view;
       viewToBeRendered.render();
-      history.pushState(null, null, pathname);
+      // history.pushState(null, null, pathname);
     } else {
-      HomeView.render();
+      UserLoginView.render();
     }
   }
   redirectTo(pathname) {
@@ -63,7 +63,7 @@ class Router {
       let viewToBeRendered = foundPath.view;
       viewToBeRendered.render();
     } else {
-      HomeView.render();
+      UserLoginView.render();
     }
   }
 }
